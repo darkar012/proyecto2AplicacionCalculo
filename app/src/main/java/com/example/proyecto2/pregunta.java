@@ -4,6 +4,7 @@ public class pregunta {
 
     private int A;
     private int B;
+    private int C;
     private String operador;
     private String[] operandos = {"+", "-", "*", "/"};
 
@@ -15,7 +16,12 @@ public class pregunta {
     }
 
     public String getPregunta() {
-        return A + " " + operador + " " + B;
+        if (operador.equals("/")) {
+            C = A * B;
+            return C + " " + operador + " " + A;
+        } else {
+            return A + " " + operador + " " + B;
+        }
     }
 
     public double getRespuesta() {
@@ -31,11 +37,12 @@ public class pregunta {
                 respuesta = A * B;
                 break;
             case "/":
-                respuesta = A / B;
+                respuesta = C / A;
                 break;
         }
         return respuesta;
 
 
     }
+
 }
