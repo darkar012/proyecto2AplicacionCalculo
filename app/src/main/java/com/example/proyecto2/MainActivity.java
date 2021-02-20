@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -114,19 +115,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void responder() {
         String res = respuesta.getText().toString();
-        int resInt = Integer.parseInt(res);
-        double correcta = p.getRespuesta();
-        if (resInt == correcta) {
-            Toast.makeText(this, "correcto", Toast.LENGTH_SHORT).show();
-            punto = punto + 5;
-            puntaje.setText("Puntaje: " + punto);
-            nuevaPregunta();
-            respuesta.setText("");
-            counterplay = false;
-            Toast.makeText(this, "respuesta: " + p.getRespuesta(), Toast.LENGTH_SHORT).show();
+        res.trim();
+        if (res.equals("")) {
+            Toast.makeText(this, "no ha escrito una respuestas", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Pendejo", Toast.LENGTH_SHORT).show();
+            try {
+                int resInt = Integer.parseInt(res);
+
+                int correcta = p.getRespuesta();
+                if (resInt == correcta) {
+                    Toast.makeText(this, "correcto", Toast.LENGTH_SHORT).show();
+                    punto = punto + 5;
+                    puntaje.setText("Puntaje: " + punto);
+                    nuevaPregunta();
+                    respuesta.setText("");
+                    counterplay = false;
+                    Toast.makeText(this, "respuesta: " + p.getRespuesta(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Pendejo", Toast.LENGTH_SHORT).show();
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "No ha escrito un valor valido, solo se permiten numeros", Toast.LENGTH_SHORT).show();
+                respuesta.setText("");
+            }
         }
+
     }
 
     private void nuevaPregunta() {

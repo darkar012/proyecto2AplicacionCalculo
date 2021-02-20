@@ -24,8 +24,8 @@ public class pregunta {
         }
     }
 
-    public double getRespuesta() {
-        double respuesta = 0;
+    public int getRespuesta() {
+        int respuesta = 0;
         switch (operador) {
             case "+":
                 respuesta = A + B;
